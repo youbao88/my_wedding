@@ -323,9 +323,9 @@
     <div id="sound-popup" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.8); display: flex; justify-content: center; align-items: center; z-index: 2000;">
         <div style="background-color: rgba(0, 0, 0,0.5); padding: 20px; border-radius: 10px; text-align: center; max-width: 300px; width: 100%; border: 2px solid #E8BD70;">
             <h5 class="huakang gold">播放声音</h5>
-            <p class="huakang gold">是否播放背景音乐?</p>
-            <button onclick="playWithSound()" style="margin: 10px; padding: 10px 20px; border: none; background-color: #1E3A8A; color: #E8BD70; border-radius: 5px; cursor: pointer;">开启背景音乐</button>
-            <button onclick="playWithoutSound()" style="margin: 10px; padding: 10px 20px; border: none; background-color: #E8BD70; color: #1E3A8A; border-radius: 5px; cursor: pointer;">关闭背景音乐</button>
+            <p class="huakang gold">是否播放音乐?</p>
+            <button onclick="playWithSound()" style="margin: 10px; padding: 10px 20px; border: none; background-color: #1E3A8A; color: #E8BD70; border-radius: 5px; cursor: pointer;">播放音乐</button>
+            <button onclick="playWithoutSound()" style="margin: 10px; padding: 10px 20px; border: none; background-color: #E8BD70; color: #1E3A8A; border-radius: 5px; cursor: pointer;">静音</button>
         </div>
     </div>
     <div class="banner">
@@ -443,6 +443,7 @@
         let isPlaying = false; // Start with music paused
         const audio = new Audio('static/music.m4a');
         const video = document.getElementById('hero-video');
+        let buttonIcon = document.querySelector('.sound-toggle i');
         audio.loop = true; // Ensure the music loops
 
         function playVideoIfWeixin(){
@@ -454,15 +455,14 @@
         }
 
         function toggleSound() {
-            const buttonIcon = document.querySelector('.sound-toggle i');
             if (isPlaying) {
                 audio.pause();
-                buttonIcon.classList.remove('fa-volume-up');
-                buttonIcon.classList.add('fa-volume-mute');
-            } else {
-                audio.play();
                 buttonIcon.classList.remove('fa-volume-mute');
                 buttonIcon.classList.add('fa-volume-up');
+            } else {
+                audio.play();
+                buttonIcon.classList.remove('fa-volume-up');
+                buttonIcon.classList.add('fa-volume-mute');
             }
             isPlaying = !isPlaying;
         }
@@ -472,13 +472,21 @@
             audio.play();
             isPlaying = true;
             document.getElementById('sound-popup').style.display = 'none';
+            document.documentElement.style.overflowY = 'auto'; // Re-enable scrolling
         }
 
         function playWithoutSound() {
             playVideoIfWeixin();
             isPlaying = false;
             document.getElementById('sound-popup').style.display = 'none';
+            buttonIcon.classList.remove('fa-volume-mute');
+            buttonIcon.classList.add('fa-volume-up');
+            document.documentElement.style.overflowY = 'auto'; // Re-enable scrolling
         }
+
+        // Disable scrolling when the popup is displayed
+        document.getElementById('sound-popup').style.display = 'flex';
+        document.documentElement.style.overflowY = 'hidden';
 
         function meteor() {
             let amount = 3;
@@ -499,6 +507,7 @@
             }
         }
         meteor();
+
     </script>
 
     <!-- Optional JavaScript; choose one of the two! -->
