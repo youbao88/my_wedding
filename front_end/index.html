@@ -1,0 +1,487 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <!-- Add Font Awesome CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
+    <title>Hello, world!</title>
+
+    <style>
+        @font-face {
+            font-family: 'Glamour';
+            src: url('static/Glamour.ttf') format('truetype');
+        }
+
+        @font-face {
+            font-family: 'wenkai';
+            src: url('static/LXGWWenKai-Medium.ttf') format('truetype');
+        }
+
+        @font-face {
+            font-family: 'xiangsi';
+            src: url('static/PingFangXiangSiTi-2.ttf') format('truetype');
+        }
+
+        @font-face {
+            font-family: 'huakang';
+            src: url('static/huakang.ttf') format('truetype');
+        }
+
+        #hero-video {
+            width: 100%;
+            height: 70vh;
+            max-height: 460px;
+            /* Ensure maximum height is 460px */
+            object-fit: cover;
+        }
+
+        html {
+            overflow-x: hidden;
+            background-color: #0B1026;
+        }
+
+
+        body {
+            background: linear-gradient(to bottom, #0B1026 60%, #2f3c7d);
+            padding-top: 80px;
+            overflow-x: hidden;
+        }
+
+        .hero-section {
+            position: relative;
+        }
+
+        .sound-toggle {
+            position: absolute;
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%);
+            z-index: 10;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        #sound-text {
+            font-family: 'LXGWWenKai', sans-serif;
+            display: block;
+            font-size: 14px;
+            color: white;
+            margin-top: 3px;
+        }
+
+        .banner {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 80px;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .banner-text {
+            font-family: 'Glamour', sans-serif;
+            font-size: 36px;
+        }
+
+        .glamour {
+            font-family: 'Glamour', sans-serif;
+        }
+
+        .wenkai {
+            font-family: 'wenkai', sans-serif;
+        }
+
+        .xiangsi {
+            font-family: 'xiangsi', sans-serif;
+        }
+
+        .huakang {
+            font-family: 'huakang', sans-serif;
+        }
+
+        .gold {
+            color: #E8BD70;
+        }
+
+        .gold-2 {
+            color: #E8BD70;
+        }
+
+        .white {
+            color: #D8E1F1;
+        }
+
+        .divider {
+            display: block;
+            margin: 20px auto;
+            width: 50%;
+            height: auto;
+        }
+
+        .divider-rotated {
+            transform: rotate(180deg);
+        }
+
+        .timeline {
+            position: relative;
+            margin: 50px 0;
+            padding: 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            /* Adjusted to start at the first dot */
+            bottom: 20px;
+            /* Adjusted to end at the last dot */
+            left: 50%;
+            width: 3px;
+            /* Reduced thickness */
+            background: #BBD4EC;
+            transform: translateX(-50%);
+        }
+
+        .timeline-event {
+            display: flex;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        .timeline-event .content {
+            width: 50%;
+            text-align: right;
+            padding-right: 20px;
+        }
+
+        .timeline-event .dot {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 12px;
+            /* Dot size */
+            height: 12px;
+            background: #E8EDEC;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .timeline-event .dot img {
+            position: relative;
+            /* Ensure proper positioning */
+            left: 55px;
+            /* Keep the icon to the right of the dot */
+            width: 60px;
+            /* Increased icon size */
+            height: 60px;
+            /* Increased icon size */
+        }
+        #wedding-couple-icon{
+            width:70px;
+            height:70px;
+            margin: 10px;
+        }
+
+        .star {
+            width: 1px;
+            height: 1px;
+            background: transparent;
+            box-shadow: 1660px 871px #fff, 613px 662px #fff, 1627px 691px #fff, 797px 556px #fff, 1251px 383px #fff, 943px 121px #fff, 677px 644px #fff, 1035px 586px #fff, 1343px 297px #fff, 1786px 65px #fff, 1596px 471px #fff, 999px 925px #fff, 1759px 171px #fff, 309px 124px #fff, 608px 943px #fff, 173px 824px #fff, 430px 569px #fff, 1519px 282px #fff, 53px 965px #fff, 545px 692px #fff, 1267px 834px #fff, 1587px 945px #fff, 1138px 463px #fff, 1343px 24px #fff, 479px 192px #fff, 557px 119px #fff, 264px 590px #fff, 1270px 965px #fff, 582px 234px #fff, 152px 815px #fff, 1728px 452px #fff, 1223px 196px #fff, 334px 796px #fff, 891px 792px #fff, 806px 710px #fff, 114px 842px #fff, 358px 918px #fff, 63px 505px #fff, 1797px 949px #fff, 1099px 149px #fff, 47px 947px #fff, 840px 999px #fff, 299px 236px #fff, 1142px 327px #fff, 994px 273px #fff, 917px 93px #fff, 1321px 729px #fff, 204px 19px #fff, 593px 638px #fff, 1229px 478px #fff, 579px 58px #fff, 351px 16px #fff, 853px 554px #fff, 827px 943px #fff, 1557px 621px #fff, 1484px 720px #fff, 941px 90px #fff, 221px 703px #fff, 1038px 258px #fff, 189px 492px #fff, 265px 685px #fff, 1131px 316px #fff, 1194px 465px #fff, 986px 878px #fff, 1611px 887px #fff, 1131px 222px #fff, 8px 491px #fff, 128px 530px #fff, 1054px 695px #fff, 1423px 974px #fff, 233px 538px #fff, 101px 685px #fff, 1696px 414px #fff, 1886px 141px #fff, 829px 198px #fff, 888px 734px #fff, 203px 14px #fff, 1034px 29px #fff, 1531px 239px #fff, 1832px 590px #fff, 826px 86px #fff, 773px 587px #fff, 1548px 558px #fff, 135px 782px #fff, 1603px 967px #fff, 973px 197px #fff, 1441px 425px #fff, 1272px 336px #fff, 660px 910px #fff, 917px 880px #fff, 348px 268px #fff, 819px 241px #fff, 38px 85px #fff, 48px 528px #fff, 1404px 971px #fff, 626px 295px #fff, 956px 556px #fff, 1179px 92px #fff, 1254px 362px #fff, 713px 215px #fff, 256px 184px #fff, 1113px 62px #fff, 1672px 749px #fff, 1796px 336px #fff, 521px 167px #fff, 1773px 181px #fff, 1150px 586px #fff, 465px 720px #fff, 808px 488px #fff, 1201px 290px #fff, 718px 259px #fff, 1072px 214px #fff, 1629px 21px #fff, 1093px 840px #fff, 1454px 848px #fff, 104px 415px #fff, 390px 517px #fff, 148px 750px #fff, 120px 744px #fff, 1376px 870px #fff, 71px 918px #fff, 808px 750px #fff, 1834px 587px #fff, 944px 857px #fff, 987px 483px #fff, 1914px 574px #fff, 671px 245px #fff, 299px 351px #fff, 294px 434px #fff, 682px 657px #fff, 942px 230px #fff, 119px 121px #fff, 404px 282px #fff, 915px 50px #fff, 231px 109px #fff, 677px 994px #fff, 1877px 146px #fff, 1314px 911px #fff, 391px 789px #fff, 1700px 205px #fff, 1882px 876px #fff, 1062px 650px #fff, 434px 889px #fff, 1298px 888px #fff, 1094px 56px #fff, 308px 144px #fff, 1677px 840px #fff, 1486px 410px #fff, 1093px 157px #fff, 1164px 573px #fff, 154px 519px #fff, 1184px 6px #fff, 1742px 438px #fff, 791px 655px #fff, 1882px 202px #fff, 1560px 196px #fff, 20px 420px #fff, 1865px 669px #fff, 909px 688px #fff, 1710px 302px #fff, 178px 417px #fff, 365px 682px #fff, 1008px 927px #fff, 1185px 431px #fff, 1483px 74px #fff, 142px 737px #fff, 1617px 684px #fff, 757px 744px #fff, 916px 191px #fff, 1733px 247px #fff, 428px 674px #fff, 490px 563px #fff, 16px 998px #fff, 1823px 589px #fff, 1867px 890px #fff, 765px 713px #fff, 1116px 534px #fff, 170px 15px #fff, 751px 816px #fff, 1662px 848px #fff, 886px 573px #fff, 1534px 310px #fff, 69px 853px #fff, 252px 494px #fff, 208px 155px #fff, 644px 434px #fff, 1740px 92px #fff, 568px 475px #fff, 1294px 46px #fff, 144px 655px #fff, 1183px 90px #fff, 719px 335px #fff, 258px 102px #fff, 1407px 530px #fff, 1874px 53px #fff, 1666px 815px #fff, 447px 48px #fff, 1810px 813px #fff, 857px 752px #fff, 1085px 633px #fff;
+        }
+
+        meteor {
+            position: absolute;
+            height: 160px;
+            background: linear-gradient(transparent, #fff);
+            border-bottom-left-radius: 5px;
+            border-bottom-right-radius: 5px;
+            animation: raining 5s linear Infinite;
+            z-index:-100
+        }
+
+        @-moz-keyframes raining {
+            0% {
+                transform: translateY(-160px);
+            }
+
+            100% {
+                transform: translateY(calc(100vh + 160px));
+            }
+        }
+
+        @-webkit-keyframes raining {
+            0% {
+                transform: translateY(-160px);
+            }
+
+            100% {
+                transform: translateY(calc(100vh + 160px));
+            }
+        }
+
+        @-o-keyframes raining {
+            0% {
+                transform: translateY(-160px);
+            }
+
+            100% {
+                transform: translateY(calc(100vh + 160px));
+            }
+        }
+
+        @keyframes raining {
+            0% {
+                transform: translateY(-160px);
+            }
+
+            100% {
+                transform: translateY(calc(100vh + 160px));
+            }
+        }
+
+        .meteor-container {
+            margin-top: 50px;
+            transform: rotate(70deg);
+            /* Adjust to position meteors closer to the invitation section */
+        }
+
+
+        .form-control-sm {
+            max-width: 233px;
+            /* Reduced to 2/3 of 350px */
+            height: 45px;
+            /* Increase height */
+            margin: 0 auto;
+            /* Center align inputs */
+            background-color: rgba(255, 255, 255, 0.1);
+            /* Set background color */
+            color: rgba(255, 255, 255, 0.6);
+            /* Ensure text is readable */
+            border: 1px solid #E8BD70;
+            /* Remove borders */
+            box-shadow: none;
+            /* Remove shadow */
+            border-radius: 15px;
+            /* Further increase border radius */
+        }
+
+        .form-control-sm::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+            /* Set placeholder color */
+        }
+
+        form .col-md-2 {
+            width: 100%;
+            /* Make columns full width */
+            text-align: center;
+            /* Center align text */
+        }
+
+        form .submit-button {
+            max-width: 233px;
+            /* Reduced to 2/3 of 350px */
+            height: 45px;
+            /* Match button height with inputs */
+            margin: 0 auto;
+            /* Center align button */
+            border-radius: 15px;
+            /* Match border radius with inputs */
+            background-color: #1E3A8A;
+            border: 1px solid #E8BD70;
+            color: #E8BD70;
+            font-weight: bold;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        form .submit-button:hover {
+            background-color: #E8BD70;
+            color: #1E3A8A
+        }
+    </style>
+</head>
+
+<body>
+    <div class="banner">
+        <div class="banner-text gold">Minhao&amp;Tao</div>
+        <button class="sound-toggle" onclick="toggleSound()">
+            <i class="fas fa-volume-mute"></i>
+        </button>
+    </div>
+    <div class="hero-section">
+        <video autoplay muted playsinline loop id="hero-video">
+            <source src="static/background-croped.mp4" type="video/mp4">
+        </video>
+    </div>
+    <div class="meteor-container" id="meteor-container">
+    </div>
+    <div class="star"></div>
+    <section id="invitation-letter" class="py-5">
+        <div class="container text-center">
+            <img src="static/divider copy.svg" alt="Divider" class="divider">
+            <h2 class="display-6 glamour gold">Invitation</h2>
+            <h2 class="display-5 huakang gold">婚礼邀请函</h2>
+            <p class="lead white huakang">2025年9月20日</p>
+            <p class="lead white huakang">上海迪士尼酒店仙履奇缘宴会厅</p>
+            <p class="lead white glamour">Minhao Zhou & Tao Xu</p>
+            <img src="static/divider copy.svg" alt="Divider" class="divider divider-rotated">
+        </div>
+    </section>
+    <section id="event-details" class="py-5">
+        <div class="container text-center">
+            <h2 class="display-6 glamour gold">Le programme</h2>
+            <h2 class="display-6 huakang gold">流程</h2>
+            <div class="timeline">
+                <div class="timeline-event">
+                    <div class="content">
+                        <h4 class="gold-2 huakang">16:00</h4>
+                        <p class="white huakang">迎宾</p>
+                    </div>
+                    <div class="dot">
+                        <img src="static/arch.png" alt="Welcome Icon">
+                    </div>
+                </div>
+                <div class="timeline-event">
+                    <div class="dot">
+                        <img src="static/photo.png" alt="Meeting Icon">
+                    </div>
+                    <div class="content">
+                        <h4 class="gold-2 huakang">16:30</h4>
+                        <p class="white huakang">迪士尼朋友见面会</p>
+                    </div>
+                </div>
+                <div class="timeline-event">
+                    <div class="content">
+                        <h4 class="gold-2 huakang">17:00</h4>
+                        <p class="white huakang">餐前迎宾酒会</p>
+                    </div>
+                    <div class="dot">
+                        <img src="static/wine.png" alt="Cocktail Icon">
+                    </div>
+                </div>
+                <div class="timeline-event">
+                    <div class="dot">
+                        <img src="static/dinner.png" alt="Dinner Icon">
+                    </div>
+                    <div class="content">
+                        <h4 class="gold-2 huakang">18:00</h4>
+                        <p class="white huakang">中式晚宴</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="RSVP" class="py-5">
+        <div class="container text-center">
+            <h2 class="display-6 glamour gold">Répondez s'il vous plaît</h2>
+            <h2 class="display-6 huakang gold">敬请回复</h2>
+            <!-- Form starts here -->
+            <form class="mt-4 row g-3 justify-content-center align-items-center flex-column" action="/submit_rsvp"
+                method="POST">
+                <div class="col-md-2">
+                    <input type="text" class="form-control form-control-sm" id="guestName" name="guestName"
+                        placeholder="姓名" required>
+                </div>
+                <div class="col-md-2">
+                    <select class="form-control form-control-sm" id="guestCount" name="guestCount" required>
+                        <option value="" disabled selected>人数</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <button type="submit" class="submit-button glamour form-control-sm w-100">提交</button>
+                </div>
+            </form>
+            <!-- Form ends here -->
+        </div>
+    </section>
+    <section id="thankyou">
+        <div class="container text-center">
+            <h2 class="display-6 glamour gold">Merci</h2>
+            <p class="lead huakang white">感谢你的回应，我们的童话因为你的加入更加完整。期待与你在魔法的日子里相见！</p>
+            <img src="static/doves.png" alt="Wedding Couple" id="wedding-couple-icon">
+        </div>
+
+    </section>
+    <footer class="py-4 text-center" style="background-color: #0B1026; color: #D3E5EF;">
+        <div class="container">
+            <p class="mb-0" style="font-size: 12px;">&copy; 2025 Minhao & Tao. All rights reserved.</p>
+        </div>
+    </footer>
+    <script>
+        let isPlaying = false; // Start with music playing
+        const audio = new Audio('static/music.m4a');
+        audio.loop = true; // Ensure the music loops
+
+        function toggleSound() {
+            const buttonIcon = document.querySelector('.sound-toggle i');
+            if (isPlaying) {
+                audio.pause();
+                buttonIcon.classList.remove('fa-volume-up');
+                buttonIcon.classList.add('fa-volume-mute');
+            } else {
+                audio.play();
+                buttonIcon.classList.remove('fa-volume-mute');
+                buttonIcon.classList.add('fa-volume-up');
+            }
+            isPlaying = !isPlaying;
+        }
+
+        function meteor() {
+            let amount = 3;
+            let body = document.getElementById("meteor-container");
+            let count = 0;
+            while (count < amount) {
+                let drop = document.createElement("meteor");
+                let size = Math.random() * 2; // Reduced size for thinner meteors
+                let posX = Math.floor(window.innerWidth / 2 + Math.random() * (window.innerWidth / 2)); // Restricted to the right half
+                let delay = Math.random() * -20;
+                let duration = Math.random() * 5;
+                drop.style.width = `${0.05 + size}px`; // Adjusted width for thinner meteors
+                drop.style.left = `${posX}px`;
+                drop.style.animationDelay = `${delay}s`;
+                drop.style.animationDuration = `${3 + duration}s`;
+                body.appendChild(drop);
+                count++;
+            }
+        }
+        meteor();
+    </script>
+
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXoLXfPILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+    -->
+</body>
+
+</html>
