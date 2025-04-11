@@ -326,7 +326,8 @@
       }
 
       .meteor-container {
-        margin-top: 50px;
+        width:100%;
+        margin-top: 40px;
         transform: rotate(70deg);
         /* Adjust to position meteors closer to the invitation section */
       }
@@ -663,7 +664,7 @@
           let drop = document.createElement("meteor");
           let size = Math.random() * 2; // Reduced size for thinner meteors
           let posX = Math.floor(
-            window.innerWidth / 2 + Math.random() * (window.innerWidth / 2)
+            window.innerWidth + Math.random() * (window.innerWidth / 2)
           ); // Restricted to the right half
           let delay = Math.random() * -20;
           let duration = Math.random() * 5;
