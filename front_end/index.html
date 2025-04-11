@@ -326,7 +326,7 @@
       }
 
       .meteor-container {
-        width:100%;
+        width: 100%;
         margin-top: 40px;
         transform: rotate(70deg);
         /* Adjust to position meteors closer to the invitation section */
@@ -389,6 +389,30 @@
         width: 100%;
         z-index: 9999;
         pointer-events: none;
+      }
+      /* HTML: <div class="loader"></div> */
+      .loading-dots {
+        width: 60px;
+        aspect-ratio: 2;
+        --_g: no-repeat radial-gradient(circle closest-side, #e8bd70 90%, #0000); /* Updated color */
+        background: var(--_g) 0% 50%, var(--_g) 50% 50%, var(--_g) 100% 50%;
+        background-size: calc(100% / 3) 50%;
+        animation: l3 1s infinite linear;
+        margin: 0 auto; /* Center within the button */
+      }
+      @keyframes l3 {
+        20% {
+          background-position: 0% 0%, 50% 50%, 100% 50%;
+        }
+        40% {
+          background-position: 0% 100%, 50% 0%, 100% 50%;
+        }
+        60% {
+          background-position: 0% 50%, 50% 100%, 100% 0%;
+        }
+        80% {
+          background-position: 0% 50%, 50% 50%, 100% 100%;
+        }
       }
     </style>
   </head>
@@ -490,7 +514,7 @@
       </div>
     </section>
     <section id="event-details" class="py-5">
-      <div class="container text-center" id = 'event-details-timeline'>
+      <div class="container text-center" id="event-details-timeline">
         <h2 class="display-6 glamour gold">Le programme</h2>
         <h2 class="display-6 huakang gold">流程</h2>
         <div class="timeline">
@@ -581,7 +605,7 @@
         <!-- Form ends here -->
       </div>
     </section>
-    <section id="thankyou" style = 'display: none'>
+    <section id="thankyou" style="display: none">
       <div class="container text-center">
         <h2 class="display-6 glamour gold">Merci</h2>
         <p class="lead huakang white">
@@ -682,9 +706,10 @@
       const footer = document.querySelector("footer");
       const fireworkContainer = document.getElementById("firework-container");
       function updateFireworkPosition() {
-        const eventBottom = eventSection.getBoundingClientRect().bottom + window.scrollY;
+        const eventBottom =
+          eventSection.getBoundingClientRect().bottom + window.scrollY;
         const footerTop = footer.getBoundingClientRect().top + window.scrollY;
-        const height = footerTop - eventBottom ;
+        const height = footerTop - eventBottom;
         fireworkContainer.style.top = `${eventBottom}px`;
         fireworkContainer.style.height = `${height}px`;
       }
@@ -699,12 +724,57 @@
         intensity: 4,
         acceleration: 1,
         rocketsPoint: {
-            min:45,
-            max:55
+          min: 45,
+          max: 55,
         },
         gravity: 1.0,
       });
       fireworks.start();
+
+
+      const form = document.querySelector("form");
+      const submitButton = form.querySelector(".submit-button");
+
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault(); // Prevent default form submission
+
+        // Change button to loading state
+        submitButton.innerHTML = `<div class="loading-dots"></div>`;
+        submitButton.disabled = true;
+
+        // Collect form data
+        const formData = new FormData(form);
+        const jsonData = {};
+        formData.forEach((value, key) => {
+          jsonData[key] = value;
+        });
+
+        try {
+          // Send JSON to backend
+          const response = await fetch(form.action, {
+            method: form.method,
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(jsonData),
+          });
+
+          if (response.ok) {
+            // Handle success (e.g., show thank-you section)
+            document.getElementById("RSVP").style.display = "none";
+            document.getElementById("thankyou").style.display = "block";
+          } else {
+            alert("Failed to submit. Please try again.");
+          }
+        } catch (error) {
+          console.error("Error submitting form:", error);
+          alert("An error occurred. Please try again.");
+        } finally {
+          // Reset button state
+          submitButton.innerHTML = "提交";
+          submitButton.disabled = false;
+        }
+      });
     </script>
 
     <!-- Optional JavaScript; choose one of the two! -->
