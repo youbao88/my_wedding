@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Minhao&Tao的婚礼</title>
 
     <!-- Bootstrap CSS -->
     <link
@@ -326,10 +327,9 @@
       }
 
       .meteor-container {
-        width: 100%;
-        margin-top: 40px;
-        transform: rotate(70deg);
-        /* Adjust to position meteors closer to the invitation section */
+        transform-origin: bottom right; /* Set rotation point to lower right */
+        transform: rotate(65deg);
+        float: right; /* Align the meteor container to the right */
       }
 
       .form-control-sm {
@@ -384,6 +384,13 @@
         background-color: #e8bd70;
         color: #1e3a8a;
       }
+
+      form .submit-button:disabled:hover {
+        background-color: #1e3a8a; /* Keep the default background color */
+        color: #e8bd70; /* Keep the default text color */
+        cursor: not-allowed; /* Indicate the button is disabled */
+      }
+
       #firework-container {
         position: absolute;
         width: 100%;
@@ -414,6 +421,7 @@
           background-position: 0% 50%, 50% 50%, 100% 100%;
         }
       }
+
     </style>
   </head>
 
@@ -445,8 +453,7 @@
           border: 2px solid #e8bd70;
         "
       >
-        <h5 class="huakang gold">播放声音</h5>
-        <p class="huakang gold">是否播放音乐?</p>
+        <h5 class="huakang gold">是否播放声音?</h5>
         <button
           onclick="playWithSound()"
           style="
@@ -496,7 +503,6 @@
         <source src="static/background-croped.mp4" type="video/mp4" />
       </video>
     </div>
-    <div class="meteor-container" id="meteor-container"></div>
     <div class="star"></div>
     <section id="invitation-letter" class="py-5">
       <div class="container text-center">
@@ -513,6 +519,7 @@
         />
       </div>
     </section>
+    <div class="meteor-container" id="meteor-container"></div>
     <section id="event-details" class="py-5">
       <div class="container text-center" id="event-details-timeline">
         <h2 class="display-6 glamour gold">Le programme</h2>
@@ -681,15 +688,18 @@
       document.documentElement.style.overflowY = "hidden";
 
       function meteor() {
+        const invitationLetter = document.getElementById("invitation-letter");
+        const meteorContainer = document.getElementById("meteor-container");
+        const invitationHeight = invitationLetter.offsetHeight;
+        meteorContainer.style.width = `${invitationHeight}px`;
         let amount = 3;
         let body = document.getElementById("meteor-container");
         let count = 0;
         while (count < amount) {
           let drop = document.createElement("meteor");
           let size = Math.random() * 2; // Reduced size for thinner meteors
-          let posX = Math.floor(
-            window.innerWidth + Math.random() * (window.innerWidth / 2)
-          ); // Restricted to the right half
+          let containerWidth = body.offsetWidth; // Get the width of the parent container
+          let posX = Math.random() * containerWidth; // Restrict posX to the container's width
           let delay = Math.random() * -20;
           let duration = Math.random() * 5;
           drop.style.width = `${0.05 + size}px`; // Adjusted width for thinner meteors
@@ -700,7 +710,10 @@
           count++;
         }
       }
-      meteor();
+      // Call the function on load and resize
+      window.addEventListener("load", meteor());
+      window.addEventListener("resize", meteor());
+
 
       const eventSection = document.getElementById("event-details-timeline");
       const footer = document.querySelector("footer");
@@ -721,6 +734,10 @@
 
       //Create fireworks
       const fireworks = new Fireworks.default(fireworkContainer, {
+        hue:{
+          min:45,
+          max:60
+          },
         intensity: 4,
         acceleration: 1,
         rocketsPoint: {
@@ -730,6 +747,7 @@
         gravity: 1.0,
       });
       fireworks.start();
+
 
 
       const form = document.querySelector("form");
@@ -764,11 +782,11 @@
             document.getElementById("RSVP").style.display = "none";
             document.getElementById("thankyou").style.display = "block";
           } else {
-            alert("Failed to submit. Please try again.");
+            alert("提交失败，请稍后再试。");
           }
         } catch (error) {
           console.error("Error submitting form:", error);
-          alert("An error occurred. Please try again.");
+          alert("提交失败，请稍后再试。");
         } finally {
           // Reset button state
           submitButton.innerHTML = "提交";
