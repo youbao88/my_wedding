@@ -751,7 +751,7 @@
 
         try {
           // Send JSON to backend
-          const response = await fetch(form.action, {
+          const response = await fetch("https://my-wedding-api.wulibaba.net", {
             method: form.method,
             headers: {
               "Content-Type": "application/json",
