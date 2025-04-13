@@ -672,6 +672,15 @@
 
     const form = document.querySelector("form");
     const submitButton = form.querySelector(".submit-button");
+    submitButton.innerHTML = `<dotlottie-player 
+      src="static/checked_animation.lottie" 
+      background="transparent" 
+      speed="1" 
+      style="width: 30px; height: 30;" 
+      autoplay
+      >
+    </dotlottie-player>`;
+
 
     form.addEventListener("submit", async (event) => {
       event.preventDefault(); // Prevent default form submission
