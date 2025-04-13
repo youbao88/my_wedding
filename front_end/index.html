@@ -403,6 +403,7 @@
       animation: l3 1s infinite linear;
       margin: 0 auto;
       /* Center within the button */
+      display:none
     }
 
     @keyframes l3 {
@@ -421,6 +422,11 @@
       80% {
         background-position: 0% 50%, 50% 50%, 100% 100%;
       }
+    }
+    #lottieContainer{
+      width: 30px;
+      height: 30px;
+      display:none;
     }
   </style>
 </head>
@@ -490,7 +496,7 @@
       <p class="display-6 lead gold glamour">"Let my love, like sunlight, surround you and yet give you illumined
         freedom."</p>
       <p class="display-7 lead gold glamour"> — Rabindranath Tagore</p>
-      <p class="display-7 lead white huakang">"愿我的爱如阳光般围绕你，却又给你光明的自由。"</p>
+      <p class="display-7 lead white huakang">"愿我的爱如阳光般围绕你，却又给你光辉灿烂的自由。"</p>
       <p class="display-8 lead white huakang pb-5"> — 泰戈尔</p>
     </div>
     <div class="container text-center">
@@ -571,8 +577,10 @@
           </select>
         </div>
         <div class="col-md-2">
-          <button type="submit" class="submit-button glamour form-control-sm w-100">
-            提交
+          <button type="submit" class="submit-button form-control-sm w-100">
+            <div class="huakang gold" id="buttonText">提交</div>
+            <div id="lottieContainer"></div>
+            <div class="loading-dots"></div>
           </button>
         </div>
       </form>
@@ -672,6 +680,17 @@
 
     const form = document.querySelector("form");
     const submitButton = form.querySelector(".submit-button");
+    const submitButtonText = document.getElementById("buttonText");
+    const submitButtonLoading = document.querySelector('.loading-dots');
+    const submitButtonChecked = document.getElementById('lottieContainer');
+
+    lottie.loadAnimation({
+      container: submitButtonChecked, // required
+      renderer: 'svg', // or 'canvas'
+      loop: false, // play only once
+      path: 'static/check-animation.json', // replace with your JSON file path
+      autoplay: false
+    });
 
 
 
@@ -679,8 +698,9 @@
       event.preventDefault(); // Prevent default form submission
 
       // Change button to loading state
-      submitButton.innerHTML = `<div class="loading-dots"></div>`;
       submitButton.disabled = true;
+      submitButtonText.style.display = "none";
+      submitButtonLoading.style.display = "block";
 
       // Collect form data
       const formData = new FormData(form);
@@ -700,16 +720,9 @@
         });
 
         if (response.ok) {
+          submitButtonLoading.style.display = "none";
+          submitButtonChecked.style.display = "block";
           // Handle success (e.g., show thank-you section)
-          submitButton.innerHTML = `<div id="lottieContainer" style="width: 30px; height: 30px;"></div>`
-          lottie.loadAnimation({
-            container: document.getElementById('lottieContainer'), // required
-            renderer: 'svg', // or 'canvas'
-            loop: true, // play only once
-            autoplay: true, // start automatically
-            path: 'static/check-animation.json' // replace with your JSON file path
-          });
-
           setTimeout(() => {
             document.getElementById("RSVP").style.display = "none";
             document.getElementById("thankyou").style.display = "block";
@@ -720,9 +733,13 @@
       } catch (error) {
         console.error("Error submitting form:", error);
         alert("提交失败，请稍后再试。");
+        submitButtonLoading.style.display = "none";
+        submitButtonText.style.display = "block";
+        submitButton.disabled = false;
       } finally {
         // Reset button state
-        submitButton.innerHTML = "提交";
+        submitButtonLoading.style.display = "none";
+        submitButtonText.style.display = "block";
         submitButton.disabled = false;
       }
     });
