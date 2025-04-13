@@ -396,6 +396,7 @@
         width: 100%;
         z-index: 9999;
         pointer-events: none;
+        display:none
       }
       /* HTML: <div class="loader"></div> */
       .loading-dots {
@@ -718,6 +719,7 @@
       const footer = document.querySelector("footer");
       const fireworkContainer = document.getElementById("firework-container");
       function updateFireworkPosition() {
+        fireworkContainer.style.display = "block";
         const eventBottom =
           eventSection.getBoundingClientRect().bottom + window.scrollY;
         const footerTop = footer.getBoundingClientRect().top + window.scrollY;
