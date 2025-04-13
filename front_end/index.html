@@ -685,7 +685,7 @@
 
       // Change button to loading state
       submitButton.disabled = true;
-      submitButtonText.style.display = "none";
+      submitButtonText.innerHTML = "";
       submitButtonLoading.style.display = "block";
 
       // Collect form data
@@ -707,7 +707,6 @@
 
         if (response.ok) {
           submitButtonLoading.style.display = "none";
-          submitButtonText.style.display = "none";
           submitButtonChecked.style.display = "block";
           checkAnimation.play();
           // Handle success (e.g., show thank-you section)
@@ -722,12 +721,12 @@
         console.error("Error submitting form:", error);
         alert("提交失败，请稍后再试。");
         submitButtonLoading.style.display = "none";
-        submitButtonText.style.display = "block";
+        submitButtonText.innerHTML = "提交";
         submitButton.disabled = false;
       } finally {
         // Reset button state
         submitButtonLoading.style.display = "none";
-        submitButtonText.style.display = "block";
+        submitButtonText.innerHTML = "提交";
         submitButton.disabled = false;
       }
     });
