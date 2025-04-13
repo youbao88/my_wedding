@@ -670,7 +670,7 @@
     const submitButtonLoading = document.querySelector('.loading-dots');
     const submitButtonChecked = document.getElementById('lottieContainer');
 
-    lottie.loadAnimation({
+    const checkAnimation = lottie.loadAnimation({
       container: submitButtonChecked, // required
       renderer: 'svg', // or 'canvas'
       loop: false, // play only once
@@ -707,7 +707,9 @@
 
         if (response.ok) {
           submitButtonLoading.style.display = "none";
+          submitBUttonText.style.display = "none";
           submitButtonChecked.style.display = "block";
+          checkAnimation.play();
           // Handle success (e.g., show thank-you section)
           setTimeout(() => {
             document.getElementById("RSVP").style.display = "none";
