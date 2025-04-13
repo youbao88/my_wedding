@@ -490,7 +490,7 @@
       <p class="display-6 lead gold glamour">"Let my love, like sunlight, surround you and yet give you illumined
         freedom."</p>
       <p class="display-7 lead gold glamour"> — Rabindranath Tagore</p>
-      <p class="display-7 lead white huakang">"让我的爱像阳光一样包围你，又给你光辉灿烂的自由"</p>
+      <p class="display-7 lead white huakang">"愿我的爱如阳光般围绕你，却又给你光明的自由。"</p>
       <p class="display-8 lead white huakang pb-5"> — 泰戈尔</p>
     </div>
     <div class="container text-center">
@@ -672,14 +672,6 @@
 
     const form = document.querySelector("form");
     const submitButton = form.querySelector(".submit-button");
-    submitButton.innerHTML = `<div id="lottieContainer" style="width: 30px; height: 30px;"></div>`
-    lottie.loadAnimation({
-    container: document.getElementById('lottieContainer'), // required
-    renderer: 'svg', // or 'canvas'
-    loop: true, // play only once
-    autoplay: true, // start automatically
-    path: 'static/check-animation.json' // replace with your JSON file path
-  });
 
 
 
@@ -709,14 +701,14 @@
 
         if (response.ok) {
           // Handle success (e.g., show thank-you section)
-          submitButton.innerHTML = `<dotlottie-player 
-            src="static/checked_animation.lottie" 
-            background="transparent" 
-            speed="1" 
-            style="width: 30px; height: 30;" 
-            autoplay
-            >
-          </dotlottie-player>`;
+          submitButton.innerHTML = `<div id="lottieContainer" style="width: 30px; height: 30px;"></div>`
+          lottie.loadAnimation({
+            container: document.getElementById('lottieContainer'), // required
+            renderer: 'svg', // or 'canvas'
+            loop: true, // play only once
+            autoplay: true, // start automatically
+            path: 'static/check-animation.json' // replace with your JSON file path
+          });
 
           setTimeout(() => {
             document.getElementById("RSVP").style.display = "none";
