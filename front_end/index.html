@@ -282,7 +282,7 @@
         background: linear-gradient(transparent, #fff);
         border-bottom-left-radius: 5px;
         border-bottom-right-radius: 5px;
-        animation: raining 5s linear Infinite;
+        animation: raining 8s linear Infinite;
         z-index: -100;
       }
 
@@ -712,7 +712,6 @@
       }
       // Call the function on load and resize
       window.addEventListener("load", meteor());
-      window.addEventListener("resize", meteor());
 
 
       const eventSection = document.getElementById("event-details-timeline");
@@ -727,10 +726,6 @@
         fireworkContainer.style.height = `${height}px`;
       }
 
-      window.addEventListener("resize", updateFireworkPosition);
-
-      // Call it once on load
-      updateFireworkPosition();
 
       //Create fireworks
       const fireworks = new Fireworks.default(fireworkContainer, {
@@ -746,7 +741,6 @@
         },
         gravity: 1.0,
       });
-      fireworks.start();
 
 
 
@@ -781,6 +775,8 @@
             // Handle success (e.g., show thank-you section)
             document.getElementById("RSVP").style.display = "none";
             document.getElementById("thankyou").style.display = "block";
+            updateFireworkPosition();
+            fireworks.start();
           } else {
             alert("提交失败，请稍后再试。");
           }
