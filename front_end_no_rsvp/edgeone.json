@@ -7,6 +7,15 @@
             "value": "application/octet-stream"
           }
         ]
+      },
+      {
+        "source": "/static/*.woff2",
+        "headers": [
+          {
+            "key": "Content-Type",
+            "value": "application/octet-stream"
+          }
+        ]
       }
     ]
 }
